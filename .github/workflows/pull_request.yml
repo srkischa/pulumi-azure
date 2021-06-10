@@ -30,4 +30,5 @@ jobs:
           command: preview
           stack-name: dev
         env:
+          PULUMI_ROOT: PulumiAzure
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
