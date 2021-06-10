@@ -19,10 +19,16 @@ jobs:
     steps:
     
       - uses: actions/checkout@v2
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.100'
 
       - uses: pulumi/actions@v3
         with:
           command: preview
           stack-name: dev
+          work-dir: PulumiAzure  
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
