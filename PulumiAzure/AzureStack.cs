@@ -56,7 +56,7 @@ class AzureStack : Stack
             ResourceGroupName = resourceGroup.Name
         });
 
-        var blob = new Blob($"myfunctions", new BlobArgs
+        var blob = new Blob($"my-functions", new BlobArgs
         {
             AccountName = storageAccount.Name,
             ContainerName = container.Name,
