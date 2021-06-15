@@ -31,15 +31,25 @@ jobs:
      #   with:
      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-     # - name: Setup .NET Core
-     #   uses: actions/setup-dotnet@v1
-     #   with:
-     #     dotnet-version: '5.0.100'
-
-      - uses: pulumi/actions@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+          
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: PulumiAzure.Functions
+        
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        working-directory: PulumiAzure.Functions    
+          
+      - name: Pulumi preview
+        uses: pulumi/actions@v3
         with:
           command: preview
           stack-name: dev
+          comment-on-pr: true
           work-dir: ./PulumiAzure  
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
